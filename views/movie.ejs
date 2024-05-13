@@ -15,7 +15,9 @@
     <form action="/movies/delete/<%= movie.id %>" method="POST">
       <button type="submit">Borrar</button>
     </form>
-    <button> Modificar </button>
+    <form action="/movies/editMovie/<%= movie.id %>" method="get">
+      <button type="submit"> Editar </button>
+    </form>
     
   </body>
 </html>
