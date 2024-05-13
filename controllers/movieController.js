@@ -23,7 +23,7 @@ const movieController = {
            limit: 5,
         })
             .then(data =>{
-                return res.render('new', {movies: data, title: 'Estrenos'})
+                return res.render('new', {movies: data})
             })
             .catch( error => {
                 console.log(error);
