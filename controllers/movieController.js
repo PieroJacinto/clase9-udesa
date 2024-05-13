@@ -102,18 +102,14 @@ const movieController = {
         const id = req.params.id
         db.Movie.findByPk(id)
         .then(function (movie) {
-            if (!movie) {
-                // Manejar el caso en que la película no exista
+            if (!movie) {                
                 return res.status(404).send("Película no encontrada");
-            }
-            // Consulta para obtener todos los géneros de la base de datos
+            }            
             db.Genre.findAll()
-                .then(function (genres) {
-                    // Renderizar la vista 'editMovie' y pasar la película y los géneros
+                .then(function (genres) {                   
                     res.render('updateMovie', { movie: movie, genres: genres });
                 })
-                .catch(function (error) {
-                    // Manejar errores de consulta de géneros
+                .catch(function (error) {                    
                     console.error("Error al obtener los géneros:", error);
                     res.status(500).send("Error interno del servidor");
                 });
@@ -126,14 +122,16 @@ const movieController = {
             
     },
     update: function (req, res) {
-        let form = req.body;
+        let id = req.params.id
+        let form = req.body
+        console.log("form: ", form);
         let filtro = {
-            where: [{ id: form.id }]
+            where: { id: id }
         };
 
         db.Movie.update(form, filtro)
             .then((result) => {
-                return res.redirect("/movies/detail/" + form.id);
+                return res.redirect("/movies/detail/" + id);
             }).catch((err) => {
                 return console.log(err);
             });
